@@ -1,0 +1,22 @@
+.header{
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+    height: 100px;
+    padding: 20px;
+    background-color: #000;
+
+    &_img{
+        height: 100%;
+    }
+
+    &_nav{
+        
+        ul{
+            display: flex;
+            color: #fff;
+            gap: 10rem;
+            font-size: clamp(1.8rem, 2vw, 2.4rem);
+        }
+    }
+}
