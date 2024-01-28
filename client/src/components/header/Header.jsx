@@ -10,13 +10,13 @@ export default function Header() {
                     <a href="/">
                         <li>Accueil</li>
                     </a>
-                    <a href="">
+                    <a href="/profile/12">
                         <li>Profil</li>
                     </a>
-                    <a href="">
+                    <a href="/setting">
                         <li>Réglage</li>
                     </a>
-                    <a href="">
+                    <a href="/community">
                         <li>Communauté</li>
                     </a>
                 </ul>

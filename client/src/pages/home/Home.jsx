@@ -1,11 +1,13 @@
-import Header from "../../components/header/Header";
-import Sidebar from "../../components/sidebar/Sidebar";
+import './home.scss'
 
 export default function Home() {
-  return (
-    <>
-      <Header />
-      <Sidebar />
-    </>
-  )
+    return (
+        <main className='home'>
+            <h1>Utilisateurs:</h1>
+            <div className="home_wrapper">
+                <button className="home_wrapper_btn">12</button>
+                <button className="home_wrapper_btn">18</button>
+            </div>
+        </main>
+    )
 }
