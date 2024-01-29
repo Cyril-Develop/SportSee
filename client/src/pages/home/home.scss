@@ -1,25 +1,68 @@
 .home{
+    margin-top: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
 
-    h1{
-        font-size: clamp(3.6rem, 5vw, 4.8rem);
-        margin: 5rem 0;
-    }
-
     &_wrapper{
         display: flex;
-        gap: 10rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 5rem;
 
+        &_type{
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+
+            span{
+                font-size: clamp(1.8rem, 2vw, 2.4rem);
+            }
+
+            .checkbox{
+                position: relative;
+                width: fit-content;
+                
+                input[type="checkbox"]{
+                    appearance: none;
+                    width: 10rem;
+                    height: 5rem;
+                    cursor: pointer;
+                    border-radius: 5rem;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    background-color: #f1f1f1;
+                }
+     
+                label{
+                    position: absolute;
+                    left: 0;
+                    width: 5rem;
+                    height: 5rem;
+                    border-radius: 50%;
+                    background-color: #000;
+                    cursor: pointer;
+                    transition: transform .2s ease-in-out;
+                }
+    
+                input:checked + label{
+                    transform: translateX(5rem);
+                }
+            }
+        }
+        
         &_btn{
-            padding: 1rem;
-            border-radius: 5px;
-            border: 1px solid rgb(0, 0, 0);
-            font-size: clamp(1.8rem, 2vw, 2.4rem);
+            display: flex;
+            gap: 10rem;
 
-            &:hover{
+            button{
+                padding: 1rem;
+                border-radius: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                font-size: clamp(1.8rem, 2vw, 2.4rem);
+            }
+
+            .active{
                 background-color: #000;
                 color: #fff;
             }
