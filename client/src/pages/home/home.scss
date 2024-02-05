@@ -67,5 +67,11 @@
                 color: #fff;
             }
         }
+
+        p{
+            font-size: clamp(1.8rem, 2vw, 2.4rem);
+            color: #ff0101;
+        }
     }
+
 }

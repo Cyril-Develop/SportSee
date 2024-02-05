@@ -1,36 +1,32 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import axios from "axios";
+import { getUserInfos } from "../data/getDatas";
 
 export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
-    const [userId, setUserId] = useState();
-    const [env, setEnv] = useState("development");
-    const userUrl = `http://localhost:3000/user/${userId}`;
-    const userActivity = `http://localhost:3000/user/${userId}/activity`;
-    const userAvgSessions = `http://localhost:3000/user/${userId}/average-sessions`;
-    const userPerformance = `http://localhost:3000/user/${userId}/performance`;
+    const [userId, setUserId] = useState(
+        JSON.parse(localStorage.getItem("user")) || null
+    );
+    const [env, setEnv] = useState(
+        JSON.parse(localStorage.getItem("env")) || null
+    );
+    // const userActivity = `http://localhost:3000/user/${userId}/activity`;
+    // const userAvgSessions = `http://localhost:3000/user/${userId}/average-sessions`;
+    // const userPerformance = `http://localhost:3000/user/${userId}/performance`;
 
-    const [user, setUser] = useState({});
-    const [activity, setActivity] = useState([]);
-    const [avgSessions, setAvgSessions] = useState([]);
-    const [performance, setPerformance] = useState([]);
+    const [userInfos, setUserInfos] = useState(null);
 
     useEffect(() => {
-        if(userId === undefined) return;
-        axios.get(userUrl).then((res) => setUser(res.data)).catch((err) => console.log(err));
-        axios.get(userActivity).then((res) => setActivity(res.data)).catch((err) => console.log(err));
-        axios.get(userAvgSessions).then((res) => setAvgSessions(res.data)).catch((err) => console.log(err));
-        axios.get(userPerformance).then((res) => setPerformance(res.data)).catch((err) => console.log(err));
-    }, [userId, userUrl, userActivity, userAvgSessions, userPerformance]);
-
-    const updateUser = (newUserId, newEnv) => {
-        setUserId(newUserId);
-        setEnv(newEnv);
-    };
+        if(!userId) return;
+        const fetchData = async () => {
+            const userInfoData = await getUserInfos(userId, env);
+            setUserInfos(userInfoData);
+        };
+        fetchData();
+    }, [userId, env]);
         
     return (
-        <DataContext.Provider value={{ user, activity, avgSessions, performance, updateUser }}>
+        <DataContext.Provider value={{ setUserId, setEnv, userId, env, userInfos }}>
             {children}
         </DataContext.Provider>
     );

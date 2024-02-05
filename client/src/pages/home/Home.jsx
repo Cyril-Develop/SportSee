@@ -3,22 +3,21 @@ import { useState, useEffect } from 'react'
 import { useDataContext } from '../../context/dataContext'
 
 export default function Home() {
-    const { user, updateUser} = useDataContext();
-
-    console.log(user);
-
+    const { setUserId, setEnv, userId, env } = useDataContext();
     const [isChecked, setIsChecked] = useState(false);
-    const [env, setEnv] = useState("development");
-    const [userId, setUserId] = useState();
 
     useEffect(() => {
         !isChecked ? setEnv("development") : setEnv("production");
     }, [isChecked]);
 
     useEffect(() => {
-        updateUser(userId, env);
-    }, [userId, env, updateUser]);
+        localStorage.setItem("env", JSON.stringify(env));
+    }, [env]);
 
+    useEffect(() => {
+        if (!userId) return;
+        localStorage.setItem("user", JSON.stringify(userId));
+    }, [userId]);
 
     return (
         <main className='home'>
@@ -27,7 +26,7 @@ export default function Home() {
                     <span>Développement</span>
                     <div className="checkbox">
                         <input type="checkbox" id='check' onChange={() => setIsChecked(!isChecked)} />
-                        <label htmlFor="check"></label>
+                        <label htmlFor="check" aria-label="Choisir l'environnement"></label>
                     </div>
                     <span>Production</span>
                 </div>
@@ -35,6 +34,7 @@ export default function Home() {
                     <button onClick={() => setUserId(12)} className={userId === 12 ? "active" : ""}>Utilisateur 12</button>
                     <button onClick={() => setUserId(18)} className={userId === 18 ? "active" : ""}>Utilisateur 18</button>
                 </div>
+                {!userId && <p className="home_warning">Veuillez sélectionner un utilisateur</p>}
             </div>
         </main>
     )

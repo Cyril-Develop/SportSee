@@ -1,24 +1,29 @@
 import './header.scss'
 import Logo from '../../assets/logo.png'
+import { useDataContext } from '../../context/dataContext'
+import { Link } from 'react-router-dom';
 
 export default function Header() {
+
+    const { userId } = useDataContext();
+
     return (
         <header className="header">
             <img className="header_img" src={Logo} alt="SportSee - logo" />
             <nav className="header_nav">
                 <ul>
-                    <a href="/">
+                    <Link to="/">
                         <li>Accueil</li>
-                    </a>
-                    <a href="/profile/12">
+                    </Link>
+                    <Link to={`/profile/${userId}`}>
                         <li>Profil</li>
-                    </a>
-                    <a href="/setting">
+                    </Link>
+                    <Link to="/setting">
                         <li>Réglage</li>
-                    </a>
-                    <a href="/community">
+                    </Link>
+                    <Link to="/community">
                         <li>Communauté</li>
-                    </a>
+                    </Link>
                 </ul>
             </nav>
         </header>

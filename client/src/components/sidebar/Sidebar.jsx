@@ -9,18 +9,18 @@ export default function Sidebar() {
     <aside className='sidebar'>
         <nav className='sidebar_nav'>
             <ul>
-                <a href="/">
-                    <img src={LogoYoga} alt="" />
-                </a>
-                <a href="">
-                    <img src={LogoSwim} alt="" />
-                </a>
-                <a href="">
-                    <img src={LogoCycle} alt="" />
-                </a>
-                <a href="">
-                    <img src={LogoDumbbell} alt="" />
-                </a>
+                <li>
+                    <img src={LogoYoga} alt="Yoga" />
+                </li>
+                <li>
+                    <img src={LogoSwim} alt="Nager" />
+                </li>
+                <li>
+                    <img src={LogoCycle} alt="Fazire du vélo" />
+                </li>
+                <li>
+                    <img src={LogoDumbbell} alt="Musculation" />
+                </li>
             </ul>
         </nav>
         <footer className='sidebar_footer'>
