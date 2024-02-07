@@ -11,11 +11,10 @@ html{
     font-family: 'Roboto', sans-serif;
 }
 
-body{
-    max-width: 1800px;
-    margin: 0 auto;
-    min-height: 100vh;
-}
+// body{
+//     max-width: 1800px;
+//     margin: 0 auto;
+// }
 
 li{
     list-style: none;
@@ -29,4 +28,8 @@ a{
 button{
     cursor: pointer;
     border: none;
+}
+
+main{
+    padding: 15rem 10rem 6rem 20rem;
 }

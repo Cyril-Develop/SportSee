@@ -3,27 +3,10 @@ export default class UserInfos {
         this.firstName = user.userInfos.firstName;
         this.lastName = user.userInfos.lastName;
         this.age = user.userInfos.age;
-        this.todayScore = user.todayScore;
-        this.calorieCount = user.keyData.calorieCount;
+        this.score = user.todayScore ? user.todayScore : user.score;
+        this.calorieCount = user.keyData.calorieCount.toLocaleString('en-US');
         this.proteinCount = user.keyData.proteinCount;
         this.carbohydrateCount = user.keyData.carbohydrateCount;
         this.lipidCount = user.keyData.lipidCount;
     }
-
-    getFullName() {
-        return `${this.firstName} ${this.lastName}`;
-    }
-
-    getAge() {
-        return this.age;
-    }
-
-    getTodayScore() {
-        return this.todayScore;
-    }
-
-    getKeyData() {
-        return this.keyData;
-    }
-
 }

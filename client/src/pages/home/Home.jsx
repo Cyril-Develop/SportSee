@@ -7,13 +7,18 @@ export default function Home() {
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
-        !isChecked ? setEnv("development") : setEnv("production");
-    }, [isChecked]);
+        setEnv(isChecked ? "production" : "development");
+    }, [isChecked, setEnv]);
+
+    // If current environment is production, set the checkbox to checked
+    useEffect(() => {
+        setIsChecked(env === "production");
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("env", JSON.stringify(env));
     }, [env]);
-
+    
     useEffect(() => {
         if (!userId) return;
         localStorage.setItem("user", JSON.stringify(userId));
@@ -25,7 +30,7 @@ export default function Home() {
                 <div className="home_wrapper_type">
                     <span>Développement</span>
                     <div className="checkbox">
-                        <input type="checkbox" id='check' onChange={() => setIsChecked(!isChecked)} />
+                        <input type="checkbox" id='check' checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
                         <label htmlFor="check" aria-label="Choisir l'environnement"></label>
                     </div>
                     <span>Production</span>

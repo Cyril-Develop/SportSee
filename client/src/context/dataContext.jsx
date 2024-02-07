@@ -1,35 +1,62 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { getUserInfos } from "../data/getDatas";
+import { createContext, useContext, useEffect, useState } from "react";
+import {
+	getUserActivity,
+	getUserAverageSessions,
+	getUserInfos,
+	getUserPerformance,
+} from "../data/getDatas";
 
 export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
-    const [userId, setUserId] = useState(
-        JSON.parse(localStorage.getItem("user")) || null
-    );
-    const [env, setEnv] = useState(
-        JSON.parse(localStorage.getItem("env")) || null
-    );
-    // const userActivity = `http://localhost:3000/user/${userId}/activity`;
-    // const userAvgSessions = `http://localhost:3000/user/${userId}/average-sessions`;
-    // const userPerformance = `http://localhost:3000/user/${userId}/performance`;
+	const [userId, setUserId] = useState(
+		JSON.parse(localStorage.getItem("user")) || null
+	);
+	const [env, setEnv] = useState(
+		JSON.parse(localStorage.getItem("env")) || null
+	);
 
-    const [userInfos, setUserInfos] = useState(null);
+	const [userInfos, setUserInfos] = useState(null);
+	const [userActivity, setUserActivity] = useState(null);
+	const [userAvgSessions, setUserAvgSessions] = useState(null);
+	const [userPerformance, setUserPerformance] = useState(null);
 
-    useEffect(() => {
-        if(!userId) return;
-        const fetchData = async () => {
-            const userInfoData = await getUserInfos(userId, env);
-            setUserInfos(userInfoData);
-        };
-        fetchData();
-    }, [userId, env]);
-        
-    return (
-        <DataContext.Provider value={{ setUserId, setEnv, userId, env, userInfos }}>
-            {children}
-        </DataContext.Provider>
-    );
+	useEffect(() => {
+		if (!userId) return;
+		const fetchData = async () => {
+			const userInfoData = await getUserInfos(userId, env);
+
+			const userActivityData = await getUserActivity(userId, env);
+
+			const avgSessionsData = await getUserAverageSessions(userId, env);
+			const userAvgSessionsData = avgSessionsData.getSessions();
+
+			const userPerformanceData = await getUserPerformance(userId, env);
+
+			setUserInfos(userInfoData);
+			setUserActivity(userActivityData);
+			setUserAvgSessions(userAvgSessionsData);
+			setUserPerformance(userPerformanceData);
+		};
+		fetchData();
+	}, [userId, env]);
+
+	return (
+		<DataContext.Provider
+			value={{
+				userId,
+				setUserId,
+				env,
+				setEnv,
+				userInfos,
+				userActivity,
+				userAvgSessions,
+				userPerformance,
+			}}
+		>
+			{children}
+		</DataContext.Provider>
+	);
 };
 
 export const useDataContext = () => useContext(DataContext);

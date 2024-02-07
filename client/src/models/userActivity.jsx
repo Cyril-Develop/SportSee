@@ -1,14 +1,11 @@
 export default class UserActivity {
-    constructor(userActivity) {
-        this.userId = userActivity.userId;
-        this.sessions = userActivity.sessions;
-    }
-
-    getUserId() {
-        return this.userId;
-    }
-
-    getSessions() {
-        return this.sessions;
+    constructor(user) {
+        this.sessions = user.sessions.map((session, index) => {
+            return {
+                day: index + 1,
+                kilogram: session.kilogram,
+                calories: session.calories
+            }; 
+        });
     }
 }

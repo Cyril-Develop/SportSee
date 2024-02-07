@@ -3,29 +3,38 @@ import LogoYoga from '../../assets/yoga.png';
 import LogoSwim from '../../assets/swim.png';
 import LogoCycle from '../../assets/cycle.png';
 import LogoDumbbell from '../../assets/dumbbell.png';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
-  return (
-    <aside className='sidebar'>
-        <nav className='sidebar_nav'>
-            <ul>
-                <li>
-                    <img src={LogoYoga} alt="Yoga" />
-                </li>
-                <li>
-                    <img src={LogoSwim} alt="Nager" />
-                </li>
-                <li>
-                    <img src={LogoCycle} alt="Fazire du vélo" />
-                </li>
-                <li>
-                    <img src={LogoDumbbell} alt="Musculation" />
-                </li>
-            </ul>
-        </nav>
-        <footer className='sidebar_footer'>
-            <p>Copiryght, SportSee 2020</p>
-        </footer>
-    </aside>
-  )
+    return (
+        <aside className='sidebar'>
+            <nav className='sidebar_nav'>
+                <ul>
+                    <li>
+                        <Link to='/'>
+                            <img src={LogoYoga} alt="Yoga" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link>
+                            <img src={LogoSwim} alt="Natation" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link>
+                            <img src={LogoCycle} alt="Cyclisme" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link>
+                            <img src={LogoDumbbell} alt="Musculation" />
+                        </Link>
+                    </li>
+                </ul>
+            </nav>
+            <footer className='sidebar_footer'>
+                <p>Copiryght, SportSee 2020</p>
+            </footer>
+        </aside>
+    )
 }

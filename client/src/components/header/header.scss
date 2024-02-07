@@ -1,10 +1,15 @@
+@import '../../sass/index.scss';
+
 .header{
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 10rem;
     height: 100px;
     padding: 20px;
-    background-color: #000;
+    background-color: $color-dark;
 
     &_img{
         height: 100%;
@@ -14,7 +19,7 @@
         
         ul{
             display: flex;
-            color: #fff;
+            color: $color-light;
             gap: 10rem;
             font-size: clamp(1.8rem, 2vw, 2.4rem);
         }
