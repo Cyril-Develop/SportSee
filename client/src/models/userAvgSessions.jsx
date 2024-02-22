@@ -9,7 +9,7 @@ export default class UserAvgSessions {
         this.sessions = this.sessions.map((session, index) => {
             return {
                 day: days[index],
-                sessionLength: session.sessionLength
+                session: session.sessionLength
             }
         });
         return this.sessions;

@@ -53,21 +53,10 @@
       }
     }
 
-    &_btn {
+    &_link {
       display: flex;
       gap: 10rem;
-
-      button {
-        padding: 1rem;
-        border-radius: 5px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        font-size: clamp(1.8rem, 2vw, 2.4rem);
-      }
-
-      .active {
-        background-color: #000;
-        color: #fff;
-      }
+      font-size: clamp(1.8rem, 2vw, 2.4rem);
     }
 
     p {

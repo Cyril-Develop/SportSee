@@ -5,14 +5,19 @@ import chicken from '../../assets/chicken.svg';
 import energy from '../../assets/energy.svg';
 import Card from '../../components/card/Card';
 import SimpleBarChart from '../../components/simpleBarChart/SimpleBarChart';
+import SimpleLineChart from '../../components/simpleLineChart/SimpleLineChart';
+import SimpleRadarChart from '../../components/simpleRadarChart/SimpleRadarChart';
+import SimplePieChart from '../../components/simplePieChart/SimplePieChart';
 import { useDataContext } from '../../context/dataContext';
 import './profile.scss';
 
 export default function Profile() {
 
-	const { userId, userInfos, userActivity } = useDataContext();
+	const { userId, userInfos, userActivity, userAvgSessions, userPerformance } = useDataContext();
 
 	if (!userId) return <Navigate to="/" />
+
+	if(!userInfos || !userActivity || !userAvgSessions || !userPerformance) return <div>Chargement...</div>
 
 	return (
 		<main className='profile'>
@@ -21,9 +26,14 @@ export default function Profile() {
 				<p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
 			</header>
 			<section className='profile_main'>
-				<div className='profile_main_charts'>
+				<section className='profile_main_charts'>
 					<SimpleBarChart data={userActivity?.sessions} />
-				</div>
+					<div className='profile_main_charts_horizontal'>
+						<SimpleLineChart data={userAvgSessions} />
+						<SimpleRadarChart data={userPerformance} />
+						<SimplePieChart data={userInfos} />
+					</div>
+				</section>
 				<div className='profile_main_cards'>
 					<Card value={userInfos?.calorieCount} title="Calories" img={energy} unit="kCal" />
 					<Card value={userInfos?.proteinCount} title="Proteines" img={chicken} unit="g" />

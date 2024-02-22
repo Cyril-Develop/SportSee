@@ -9,9 +9,8 @@ import {
 export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
-	const [userId, setUserId] = useState(
-		JSON.parse(localStorage.getItem("user")) || null
-	);
+	const [userId, setUserId] = useState();	
+	
 	const [env, setEnv] = useState(
 		JSON.parse(localStorage.getItem("env")) || null
 	);
@@ -31,8 +30,9 @@ export const DataContextProvider = ({ children }) => {
 			const avgSessionsData = await getUserAverageSessions(userId, env);
 			const userAvgSessionsData = avgSessionsData.getSessions();
 
-			const userPerformanceData = await getUserPerformance(userId, env);
-
+			const performanceData = await getUserPerformance(userId, env);
+			const userPerformanceData = performanceData.getPerformance();
+			
 			setUserInfos(userInfoData);
 			setUserActivity(userActivityData);
 			setUserAvgSessions(userAvgSessionsData);

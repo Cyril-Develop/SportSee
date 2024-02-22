@@ -1,6 +1,7 @@
 import './home.scss'
 import { useState, useEffect } from 'react'
 import { useDataContext } from '../../context/dataContext'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
     const { setUserId, setEnv, userId, env } = useDataContext();
@@ -18,11 +19,6 @@ export default function Home() {
     useEffect(() => {
         localStorage.setItem("env", JSON.stringify(env));
     }, [env]);
-    
-    useEffect(() => {
-        if (!userId) return;
-        localStorage.setItem("user", JSON.stringify(userId));
-    }, [userId]);
 
     return (
         <main className='home'>
@@ -35,11 +31,10 @@ export default function Home() {
                     </div>
                     <span>Production</span>
                 </div>
-                <div className="home_wrapper_btn">
-                    <button onClick={() => setUserId(12)} className={userId === 12 ? "active" : ""}>Utilisateur 12</button>
-                    <button onClick={() => setUserId(18)} className={userId === 18 ? "active" : ""}>Utilisateur 18</button>
+                <div className="home_wrapper_link">
+                    <Link to="/profile/12" onClick={() => setUserId(12)}>Karl</Link>
+                    <Link to="/profile/18" onClick={() => setUserId(18)}>Cecilia</Link>
                 </div>
-                {!userId && <p className="home_warning">Veuillez sélectionner un utilisateur</p>}
             </div>
         </main>
     )
