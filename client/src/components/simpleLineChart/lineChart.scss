@@ -1,6 +1,11 @@
 @import "../../sass/index.scss";
 
-.lineChart{
+.lineChart {
     background-color: $color-red;
     border-radius: .5rem;
+
+    &_tooltip {
+        background-color: #fff;
+        padding: 1rem;
+    }
 }

@@ -1,19 +1,18 @@
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
+import Community from './pages/community/Community';
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Setting from './pages/setting/Setting';
-import Community from './pages/community/Community';
 
 function App() {
     const Layout = () => {
         return (
             <>
-                <Header/>
-                <Sidebar/>
-                <Outlet/>
-                
+                <Header />
+                <Sidebar />
+                <Outlet />
             </>
         )
     };
@@ -22,26 +21,26 @@ function App() {
         {
             path: "/",
             element: (
-                <Layout/>
+                <Layout />
             ),
             children: [
                 {
                     path: "/",
-                    element: <Home/>
+                    element: <Home />
                 },
                 {
                     path: "/profile/:id",
-                    element: <Profile/>
+                    element: <Profile />
                 },
                 {
                     path: "/setting",
-                    element: <Setting/>
+                    element: <Setting />
                 },
                 {
                     path: "/community",
-                    element: <Community/>
+                    element: <Community />
                 },
-            ]   
+            ]
         }
     ]);
 

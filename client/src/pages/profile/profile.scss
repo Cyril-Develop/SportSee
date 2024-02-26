@@ -6,6 +6,10 @@
     gap: 6rem;
     width: 100%;
 
+    @media screen and (max-width: 1100px) {
+        gap: 3rem;
+    }
+
     &_title {
         display: flex;
         flex-direction: column;
@@ -27,7 +31,15 @@
 
     &_main {
         display: flex;
+        height: 80vh;
+        max-height: 900px;
         gap: 2rem;
+
+        @media screen and (max-width: 1100px) {
+            flex-direction: column-reverse;
+            height: auto;
+            max-height: unset;
+        }
 
         &_charts {
             display: flex;
@@ -35,19 +47,33 @@
             gap: 2rem;
             width: 80%;
 
-            &_horizontal{
+            @media screen and (max-width: 1100px) {
+                width: 100%;
+            }
+
+            &_horizontal {
                 display: flex;
                 gap: 2rem;
-                height: 50%;
+                height: 40%;
                 width: 100%;
+
+                @media screen and (max-width: 1100px) {
+                    flex-direction: column;
+                }
             }
         }
 
         &_cards {
             display: flex;
             flex-direction: column;
-            gap: 4rem;
-            width: 20%;
+            justify-content: space-between;
+
+            @media screen and (max-width: 1100px) {
+                flex-wrap: wrap;
+                flex-direction: row;
+                gap: 2rem;
+                width: 100%;
+            }
         }
     }
 }
