@@ -5,7 +5,7 @@ import './radarChart.scss';
 export default class SimpleRadarChart extends PureComponent {
 
     render() {
-        console.log(this.props.data);
+
         return (
             <ResponsiveContainer width="100%" height="100%" className="radarChart">
                 <RadarChart cx="50%" cy="50%" outerRadius="70%" data={this.props.data} margin={{ top: 0, right: 30, bottom: 0, left: 30 }} startAngle={30} endAngle={-330}>

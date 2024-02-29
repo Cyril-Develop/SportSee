@@ -7,14 +7,22 @@ export default class SimpleLineChart extends PureComponent {
     render() {
 
         const CustomTooltip = ({ active, payload }) => {
-            if (active && payload) {
-                return <p className="lineChart_tooltip">{`${payload[0].value} min`}</p>
-            }
+            if (active && payload) return <p className="lineChart_tooltip">{`${payload[0].value} min`}</p>
             return null;
-        }
+        };
+
+        const mouseMove = e => {
+            
+        };
+
+        const mouseOut = () => {
+            
+        };
+
 
         return (
-            <ResponsiveContainer width="100%" height="100%" className="lineChart">
+            <ResponsiveContainer width="100%" height="100%" className="lineChart" >
+                <div className="lineChart_overlay"></div>
                 <LineChart
                     data={this.props.data}
                     margin={{
@@ -23,13 +31,15 @@ export default class SimpleLineChart extends PureComponent {
                         left: 20,
                         bottom: 20,
                     }}
+                    onMouseMove={e => mouseMove(e)}
+                    onMouseOut={mouseOut}
                 >
                     <text x={20} y={20} fill="#ffffff" opacity={0.5} fontWeight={500} textAnchor="left" dominantBaseline="central" >
                         <tspan x={30} y={40} fontSize="15">Durée moyenne des</tspan>
                         <tspan x={30} y={65} fontSize="15">sessions</tspan>
                     </text>
                     <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 'clamp(1.5rem, 2vw, 2rem)', fontWeight: '500', fill: '#fff', opacity: "0.5" }} />
-                    <YAxis hide={true} domain={['dataMin-10', 'dataMax + 40']} />
+                    <YAxis hide={true} domain={['dataMin - 20', 'dataMax + 40']} />
                     <Tooltip content={<CustomTooltip />} />
                     <Line type="natural" dataKey="session" stroke="#FBFBFB" dot={false} activeDot={{
                         stroke: "rgba(255,255,255, 0.3)",
@@ -37,7 +47,9 @@ export default class SimpleLineChart extends PureComponent {
                         r: 5,
                     }} />
                 </LineChart>
+
             </ResponsiveContainer>
+
         );
     }
 }
