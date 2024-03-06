@@ -23,8 +23,9 @@ export const getUserInfos = async (userId, env) => {
     } catch (error) {
         console.error(error);
     }
+
+    console.log("data come from", env, "environment");
     const userInfo = new UserInfos(user);
-    // console.log(userInfo);
     return userInfo;
 };
 
@@ -46,7 +47,6 @@ export const getUserActivity = async (userId, env) => {
     }
 
     const userActivity = new UserActivity(user);
-    // console.log(userActivity);
     return userActivity;
 };
 
@@ -68,7 +68,6 @@ export const getUserAverageSessions = async (userId, env) => {
     }
 
     const userAverageSessions = new UserSessions(user);
-    //console.log(userAverageSessions);
     return userAverageSessions;
 };
 
@@ -90,6 +89,5 @@ export const getUserPerformance = async (userId, env) => {
     }
 
     const userPerformance = new UserPerformance(user);
-    //console.log(userPerformance);
     return userPerformance;
 };
