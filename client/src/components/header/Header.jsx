@@ -9,7 +9,7 @@ export default function Header() {
 
     const { userId } = useDataContext();
     const [toggleMenu, setToggleMenu] = useState(false);
-
+    
     return (
         <header className="header">
             <img className="header_img" src={Logo} alt="SportSee - logo" />
@@ -19,13 +19,13 @@ export default function Header() {
                     <Link to="/">
                         <li>Accueil</li>
                     </Link>
-                    <Link to={`/profile/${userId}`}>
+                    <Link to={userId && `/profile/${userId}`}>
                         <li>Profil</li>
                     </Link>
-                    <Link to="/setting">
+                    <Link to="/">
                         <li>Réglage</li>
                     </Link>
-                    <Link to="/community">
+                    <Link to="/">
                         <li>Communauté</li>
                     </Link>
                 </ul>

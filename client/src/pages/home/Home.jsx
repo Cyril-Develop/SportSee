@@ -4,7 +4,7 @@ import { useDataContext } from '../../context/dataContext'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
-    const { setUserId, setEnv, userId, env } = useDataContext();
+    const { setEnv, userId, env } = useDataContext();
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
@@ -32,9 +32,10 @@ export default function Home() {
                     <span>Production</span>
                 </div>
                 <div className="home_wrapper_link">
-                    <Link to="/profile/12" onClick={() => setUserId(12)}>Karl</Link>
-                    <Link to="/profile/18" onClick={() => setUserId(18)}>Cecilia</Link>
+                    <Link to="/profile/12">Karl</Link>
+                    <Link to="/profile/18">Cecilia</Link>
                 </div>
+                {!userId && <p className="home_wrapper_error">Veuillez choisir un utilisateur</p>}
             </div>
         </main>
     )

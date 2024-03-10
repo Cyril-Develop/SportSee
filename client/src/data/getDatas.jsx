@@ -3,91 +3,75 @@ import UserSessions from "../models/userAvgSessions";
 import UserInfos from "../models/userInfos";
 import UserPerformance from "../models/userPerformance";
 import {
-    USER_ACTIVITY,
-    USER_AVERAGE_SESSIONS,
-    USER_MAIN_DATA,
-    USER_PERFORMANCE,
+  USER_ACTIVITY,
+  USER_AVERAGE_SESSIONS,
+  USER_MAIN_DATA,
+  USER_PERFORMANCE,
 } from "./mocks";
 
-export const getUserInfos = async (userId, env) => {
-    let user;
+export const getUserData = async (userId, env, dataType) => {
+  let user;
 
-    try {
+  try {
+    let url;
+    let dataExtractor;
+
+    switch (dataType) {
+      case 'infos':
         if (env === "development") {
-            user = USER_MAIN_DATA.find((user) => user.id === userId);
+          user = USER_MAIN_DATA.find((user) => user.id == userId);
         } else if (env === "production") {
-            const response = await fetch(`http://localhost:3000/user/${userId}`);
-            const data = await response.json();
-            user = data.data;
+          url = `http://localhost:3000/user/${userId}`;
+          dataExtractor = (data) => data.data;
         }
-    } catch (error) {
-        console.error(error);
+        break;
+      case 'activity':
+        if (env === "development") {
+          user = USER_ACTIVITY.find((user) => user.userId == userId);
+        } else if (env === "production") {
+          url = `http://localhost:3000/user/${userId}/activity`;
+          dataExtractor = (data) => data.data;
+        }
+        break;
+      case 'averageSessions':
+        if (env === "development") {
+          user = USER_AVERAGE_SESSIONS.find((user) => user.userId == userId);
+        } else if (env === "production") {
+          url = `http://localhost:3000/user/${userId}/average-sessions`;
+          dataExtractor = (data) => data.data;
+        }
+        break;
+      case 'performance':
+        if (env === "development") {
+          user = USER_PERFORMANCE.find((user) => user.userId == userId);
+        } else if (env === "production") {
+          url = `http://localhost:3000/user/${userId}/performance`;
+          dataExtractor = (data) => data.data;
+        }
+        break;
+      default:
+        throw new Error('Invalid data type');
     }
 
-    console.log("data come from", env, "environment");
-    const userInfo = new UserInfos(user);
-    return userInfo;
-};
-
-export const getUserActivity = async (userId, env) => {
-    let user;
-
-    try {
-        if (env === "development") {
-            user = USER_ACTIVITY.find((user) => user.userId === userId);
-        } else if (env === "production") {
-            const response = await fetch(
-                `http://localhost:3000/user/${userId}/activity`
-            );
-            const data = await response.json();
-            user = data.data;
-        }
-    } catch (error) {
-        console.error(error);
+    if (url) {
+      const response = await fetch(url);
+      const data = await response.json();
+      user = dataExtractor(data);
     }
+  } catch (error) {
+    console.error(error);
+  }
 
-    const userActivity = new UserActivity(user);
-    return userActivity;
-};
-
-export const getUserAverageSessions = async (userId, env) => {
-    let user;
-
-    try {
-        if (env === "development") {
-            user = USER_AVERAGE_SESSIONS.find((user) => user.userId === userId);
-        } else if (env === "production") {
-            const response = await fetch(
-                `http://localhost:3000/user/${userId}/average-sessions`
-            );
-            const data = await response.json();
-            user = data.data;
-        }
-    } catch (error) {
-        console.error(error);
-    }
-
-    const userAverageSessions = new UserSessions(user);
-    return userAverageSessions;
-};
-
-export const getUserPerformance = async (userId, env) => {
-    let user;
-
-    try {
-        if (env === "development") {
-            user = USER_PERFORMANCE.find((user) => user.userId === userId);
-        } else if (env === "production") {
-            const response = await fetch(
-                `http://localhost:3000/user/${userId}/performance`
-            );
-            const data = await response.json();
-            user = data.data;
-        }
-    } catch (error) {
-        console.error(error);
-    }
-
-    const userPerformance = new UserPerformance(user);
-    return userPerformance;
+  switch (dataType) {
+    case 'infos':
+      return new UserInfos(user);
+    case 'activity':
+      return new UserActivity(user);
+    case 'averageSessions':
+      return new UserSessions(user);
+    case 'performance':
+      return new UserPerformance(user);
+    default:
+      throw new Error('Invalid data type');
+  }
 };

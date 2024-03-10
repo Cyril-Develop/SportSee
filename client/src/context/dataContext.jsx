@@ -1,15 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {
-  getUserActivity,
-  getUserAverageSessions,
-  getUserInfos,
-  getUserPerformance,
-} from "../data/getDatas";
+import { getUserData } from "../data/getDatas";
+import { Navigate } from "react-router-dom";
+import NotFound from "../pages/notFound/NotFound";
 
 export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
   const [userId, setUserId] = useState();
+  const [error, setError] = useState(false);
 
   const [env, setEnv] = useState(
     JSON.parse(localStorage.getItem("env")) || null
@@ -22,21 +20,29 @@ export const DataContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (!userId) return;
+
     const fetchData = async () => {
-      const userInfoData = await getUserInfos(userId, env);
+      try {
+        const userInfoData = await getUserData(userId, env, "infos");
+        setUserInfos(userInfoData);
 
-      const userActivityData = await getUserActivity(userId, env);
+        const userActivityData = await getUserData(userId, env, "activity");
+        setUserActivity(userActivityData);
 
-      const avgSessionsData = await getUserAverageSessions(userId, env);
-      const userAvgSessionsData = avgSessionsData.getSessions();
+        const avgSessionsData = await getUserData(
+          userId,
+          env,
+          "averageSessions"
+        );
+        const userAvgSessionsData = avgSessionsData.getSessions();
+        setUserAvgSessions(userAvgSessionsData);
 
-      const performanceData = await getUserPerformance(userId, env);
-      const userPerformanceData = performanceData.getPerformance();
-
-      setUserInfos(userInfoData);
-      setUserActivity(userActivityData);
-      setUserAvgSessions(userAvgSessionsData);
-      setUserPerformance(userPerformanceData);
+        const performanceData = await getUserData(userId, env, "performance");
+        const userPerformanceData = performanceData.getPerformance();
+        setUserPerformance(userPerformanceData);
+      } catch (error) {
+        setError(true);
+      }
     };
     fetchData();
   }, [userId, env]);
@@ -52,6 +58,8 @@ export const DataContextProvider = ({ children }) => {
         userActivity,
         userAvgSessions,
         userPerformance,
+        setError,
+        error,
       }}
     >
       {children}

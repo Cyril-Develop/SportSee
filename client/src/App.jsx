@@ -1,10 +1,9 @@
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
-import Community from './pages/community/Community';
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
-import Setting from './pages/setting/Setting';
+import NotFound from './pages/notFound/NotFound';
 
 function App() {
     const Layout = () => {
@@ -31,16 +30,12 @@ function App() {
                 {
                     path: "/profile/:id",
                     element: <Profile />
-                },
-                {
-                    path: "/setting",
-                    element: <Setting />
-                },
-                {
-                    path: "/community",
-                    element: <Community />
-                },
+                }
             ]
+        },
+        {
+            path: "*",
+            element: <NotFound />
         }
     ]);
 
