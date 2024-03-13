@@ -11,7 +11,6 @@ export default function Home() {
         setEnv(isChecked ? "production" : "development");
     }, [isChecked, setEnv]);
 
-    // If current environment is production, set the checkbox to checked
     useEffect(() => {
         setIsChecked(env === "production");
     }, []);

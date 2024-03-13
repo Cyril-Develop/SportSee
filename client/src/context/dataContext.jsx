@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getUserData } from "../data/getDatas";
-import { Navigate } from "react-router-dom";
-import NotFound from "../pages/notFound/NotFound";
 
 export const DataContext = createContext();
 
@@ -29,11 +27,7 @@ export const DataContextProvider = ({ children }) => {
         const userActivityData = await getUserData(userId, env, "activity");
         setUserActivity(userActivityData);
 
-        const avgSessionsData = await getUserData(
-          userId,
-          env,
-          "averageSessions"
-        );
+        const avgSessionsData = await getUserData(userId,env,"averageSessions");
         const userAvgSessionsData = avgSessionsData.getSessions();
         setUserAvgSessions(userAvgSessionsData);
 
