@@ -2,7 +2,7 @@
 
 # Formation Développeur d'application - JavaScript React
 
-## 📎 Projet 12 : Sportsee
+## 📎 Projet 12 : Sportsee - Développez un tableau de bord d'analytics avec React.
 
 ![Alt text](images/profile.png)
 
